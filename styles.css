@@ -662,7 +662,7 @@ footer a {
         background-color: var(--Blue);  /* Background color */
         padding: 1rem; 					/* Padding inside menu */
         border-radius: 0.5rem; 			/* Rounds corners */
-        position: center; 				/* Position relative to nav */
+        position:relative; 				/* Position relative to nav */
         top: 100%;						/* Below the nav */
         left: 0; 						/* Align to left edge */
         width: 400px; 					/* Set width */
