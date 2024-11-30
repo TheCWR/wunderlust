@@ -1,53 +1,979 @@
 /* Calvin Robinson */
 
 /* CSS RESET */
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
+/* Source: http://meyerweb.com/eric/tools/css/reset/ 
+   Version: v2.0 | 20110126
    License: none (public domain)
 */
 
+/* Resetting default styles for a wide range of HTML elements to ensure consistency across browsers */
 html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
+h1, h2, h3, h4, h5, h6, p, blockquote, pre, 		/* Text elements */
+a, abbr, acronym, address, big, cite, code, 		/* Inline elements */
+del, dfn, em, img, ins, kbd, q, s, samp, 			/* Inline elements continued */
+small, strike, strong, sub, sup, tt, var, 			/* Inline elements continued */
+b, u, i, center, 									/* Formatting elements */
+dl, dt, dd, ol, ul, li, 							/* List elements */
+fieldset, form, label, legend, 						/* Form elements */
+table, caption, tbody, tfoot, thead, tr, th, td, 	/* Table elements */
+article, aside, canvas, details, embed,  			/* HTML5 elements */
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+    margin: 0; 					/* Resets default margins */
+    padding: 0; 				/* Resets default padding */
+    border: 0; 					/* Resets default borders */
+    font-size: 100%; 			/* Sets font size to 16px */
+    font: inherit; 				/* Inherit font settings from parent */
+    vertical-align: baseline; 	/* Align elements to the baseline */
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-	display: block;
+    display: block; 	/* Ensure these elements are treated as block elements */
 }
+
 body {
-	line-height: 1;
+    line-height: 1; 	/* Set a consistent line height */
 }
+
 ol, ul {
-	list-style: none;
+    list-style: none; 	/* Remove default list styles (bullets/numbers) */
 }
+
 blockquote, q {
-	quotes: none;
+    quotes: none; 		/* Remove default quotes in blockquotes and quotes */
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+    content: ''; 		/* Removes content before and after quotes */
+    content: none; 		/* Ensures no content is displayed */
 }
+
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse; 	/* Merge table borders */
+    border-spacing: 0; 			/* Remove spacing between table cells */
 }
 /* END CSS RESET */
 
+/* Variables */
+/* Defining CSS variables (custom properties) for consistent theming */
+:root {
+    --Yellow: #F6D64A;
+    --Teal: #55BCD5;
+    --Purple: #9B26B0;
+    --Blue: #499BD2;
+    --Dark-Gray: #222222;
+    --Light-Gray: #EAEAEA;
+    --White: #FFFFFF;
+    --Black: #000000;
+}
+
+/* General styling */
+body {
+    font-family: 'Montserrat', sans-serif; 	/* Set base font family */
+    background-color: var(--Light-Gray); 	/* Set background color using variable */
+    color: var(--Dark-Gray); 				/* Set text color */
+    line-height: 1.6; 						/* Set default line height */
+}
+
+#skip {
+    position: absolute; 					/* Position absolutely for precise placement */
+    top: -9999px; 							/* Move off-screen vertically */
+    left: -9999px; 							/* Move off-screen horizontally */
+    z-index: -1; 							/* Place behind other elements */
+}
+
+#skip:focus {
+    position: absolute; 						 /* Bring back into normal flow when focused */
+    top: 0; 									 /* Position at the top of the page */
+    left: 0; 									 /* Align to the left edge */
+    z-index: 1000; 								 /* Bring above other elements */
+    background-color: var(--Yellow); 			 /* Highlight background */
+    color: var(--Dark-Gray); 					 /* Set text color for readability */
+    padding: 0.5rem 1rem; 						 /* Add padding around the text */
+    border-radius: 0.25rem; 					 /* Round the corners */
+    text-decoration: none; 						 /* Remove underline from link */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 	/* Add a slight shadow */
+}
+
+/* Header Styling */
+header {
+    display: grid; 							/* Use CSS Grid for layout */
+    grid-template-columns: auto 1fr auto; 	/* Define three columns: auto-width, flexible, auto-width */
+    grid-template-rows: auto auto; 			/* Define two rows */
+    grid-template-areas: 					/* Assign areas for grid items */
+        "logo h1 nav"
+        "logo p nav";
+    column-gap: 2rem; 															/* Space between columns */
+    align-items: start; 														/* Align items to the top of their grid area */
+    background: linear-gradient(to bottom, var(--Blue), var(--Light-Gray)); 	/* Gradient background */
+    color: var(--White); 														/* Set text color */
+    padding: 1.5rem 2rem; 														/* Padding: 1.5rem top/bottom, 2rem left/right */
+    box-sizing: border-box; 													/* Include padding and border in element's total width and height */
+}
+
+#logo {
+    grid-area: logo; 		/* Place in 'logo' grid area */
+    max-width: 120px; 		/* Set maximum width */
+    height: auto; 			/* Allow height to adjust automatically */
+    margin-left: -50px; 	/* Move logo left by 50px */
+}
+
+header h1 {
+    grid-area: h1; 					/* Place in 'h1' grid area */
+    font-family: 'Molle', cursive; 	/* Set custom font */
+    font-size: 3rem; 				/* Large font size for heading */
+    color: var(--Black); 			/* Set text color */
+    margin: 0; 						/* Remove default margin */
+    line-height: 1.2; 				/* Adjust line height for heading */
+    padding-left: 50px; 			/* Indent heading by 50px to the right */
+}
+
+header p {
+    grid-area: p; 				/* Place in 'p' grid area */
+    font-size: 1.2rem; 			/* Set font size */
+    color: var(--Dark-Gray); 	/* Set text color */
+    margin: 0; 					/* Remove default margin */
+    line-height: 1.6; 			/* Set line height for paragraph */
+    padding-left: 50px; 		/* Indent paragraph by 50px to the right */
+}
+
+nav {
+    grid-area: nav; 	/* Place in 'nav' grid area */
+    justify-self: end; 	/* Align navigation to the right within its grid area */
+    align-self: center; /* Vertically center navigation across both rows */
+}
+
+/* Navigation */
+nav {
+    position: absolute; 			/* Position absolutely within its containing block */
+    top: 0; 						/* Align to the top */
+    left: 0; 						/* Align to the left */
+    right: 0; 						/* Stretch to the right edge */
+    display: flex; 					/* Use flexbox for layout */
+    align-items: center; 			/* Vertically center nav items */
+    justify-content: flex-end; 		/* Align nav items to the right */
+    padding: 0; 					/* Remove any padding */
+    background-color: transparent; 	/* Transparent background */
+    z-index: 1000; 					/* Place above other elements */
+}
+
+nav ul {
+    display: flex; 		/* Display nav items in a row */
+    list-style: none; 	/* Removes bullet points */
+    margin: 0; 			/* Removes default margin */
+    padding: 0; 		/* Removes default padding */
+}
+
+nav ul li {
+    margin: 0; /* Remove default margin */
+}
+
+nav ul li + li {
+    margin-left: 0.5rem; /* Add space to the left of every li except the first */
+}
+
+nav ul li a {
+    display: block; 						/* Make the anchor fill the li */
+    padding: 0.5rem 1rem; 					/* Padding inside the link */
+    background-color: var(--Light-Gray); 	/* Background color */
+    color: var(--Dark-Gray); 				/* Text color */
+    text-decoration: none; 					/* Removes underline */
+    font-size: 1rem; 						/* Font size */
+    font-weight: bold; 						/* Bold text */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+    text-transform: uppercase; 				/* Convert text to uppercase */
+}
+
+nav ul li a:hover {
+    background-color: var(--Yellow); /* Change background on hover */
+}
+
+/* Hide Toggle Input and Label on Larger Screens */
+#menu-toggle input,
+label[for="toggle"],
+h2.sr-only {
+    display: none; /* Hide these elements on larger screens */
+}
+
+/* MAIN CONTENT */
+main {
+    margin: 0; 				/* Remove default margins */
+    max-width: 100%; 		/* Allow content to use full width */
+    width: 100%; 			/* Set width to 100% */
+    box-sizing: border-box; /* Include padding and border in total width */
+}
+
+/* INTRO SECTION */
+#intro {
+    display: grid; 					/* Use CSS Grid */
+    grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+    align-items: start; 			/* Align items to the top */
+    margin-bottom: 2rem; 			/* Space below the section */
+    padding: 2rem 0; 				/* Padding top and bottom */
+}
+
+#intro h2,
+#intro p {
+    grid-column: 1; 	/* Place in the first column */
+    margin-left: 2rem; 	/* Indent content */
+}
+
+#intro h2 {
+    font-family: 'Molle', cursive; 	/* Custom font */
+    font-size: 2rem; 				/* Heading size */
+    color: var(--Black); 			/* Text color */
+    margin-bottom: 0.5rem; 			/* Space below heading */
+    align-self: start; 				/* Align heading to the top */
+}
+
+#intro p {
+    font-size: 1.1rem; 	/* Paragraph size */
+    line-height: 1.5; 	/* Line spacing */
+}
+
+#img-grid {
+    display: grid; 													/* Grid layout for images */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 	/* Responsive columns */
+    gap: 1rem; 														/* Space between images */
+    justify-content: center; 										/* Center the grid */
+    grid-column: 2; 												/* Place in the second column */
+    align-self: start; 												/* Align to the top */
+}
+
+/* Ensure all images are the same size */
+#img-grid img {
+    width: 100%; 			/* Image fills its container width */
+    height: 150px; 			/* Fixed height */
+    object-fit: cover; 		/* Crop/scale image to fill container */
+    border-radius: 0.5rem; 	/* Rounded corners */
+}
+
+/* Plan Your Trip Section */
+#plan {
+    background-color: var(--Yellow); /* Section background color */
+    display: grid; 					 /* Use CSS Grid */
+    text-align: left; 				 /* Left-align text */
+    margin: 0 auto; 				 /* Center the section horizontally */
+    padding: 2rem; 					 /* Padding inside the section */
+}
+
+#plan h3 {
+    font-family: 'Molle', cursive; 	/* Custom font */
+    margin-left: 1rem; 				/* Indent heading */
+    font-size: 2rem; 				/* Font size */
+    color: var(--Dark-Gray); 		/* Text color */
+}
+
+#plan div {
+    display: flex; 			 /* Use flexbox for layout */
+    flex-wrap: wrap; 		 /* Allow items to wrap onto new lines */
+    justify-content: center; /* Center the child sections */
+    gap: 1.5rem; 			 /* Space between each section */
+    width: 100%; 			
+}
+
+#plan section {
+    background-color: var(--Teal);				 /* Background color */
+    flex: 1 1 calc(25% - 1.5rem); 				 /* Responsive width: grow/shrink, basis */
+    max-width: calc(25% - 1.5rem); 				 /* Maximum width to prevent overflow */
+    padding: 1rem; 								 /* Padding inside the section */
+    border: 2px solid var(--White); 			 /* Border styling */
+    border-radius: 0.5rem; 						 /* Rounded corners */
+    transition: transform 0.3s, box-shadow 0.3s; /* Animation on hover */
+    box-sizing: border-box; 					 /* Include padding and border in size */
+    display: flex; 								 /* Use flexbox */
+    flex-direction: column; 					 /* Stack items vertically */
+    align-items: center; 						 /* Center items horizontally */
+    justify-content: space-between; 			 /* Space between items vertically */
+}
+
+#plan section:hover {
+    transform: translateY(-5px); 				/* Move section up slightly on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+#plan h4 {
+    margin-top: 1rem; 			/* Space above heading */
+    font-size: 1.5rem; 			/* Font size */
+    font-weight: bold; 			/* Bold text */
+    text-transform: uppercase;  /* Uppercase text */
+    color: var(--Black); 		/* Text color */
+}
+
+#plan img {
+    width: 150px; 	
+    height: 150px; 	
+    margin: auto; 	/* Center image */
+}
+
+/* TESTIMONIAL SECTION */
+#testimonials {
+    background-color: var(--White); /* Section background color */
+    padding: 2rem; 					/* Padding inside the section */
+}
+
+#testimonials h3 {
+    font-family: 'Molle', cursive; 	/* Custom font */
+    text-align: left; 				/* Left-align heading */
+    font-size: 2rem; 				/* Font size */
+    margin-left: 1rem; 				/* Indent heading */
+}
+
+#testimonials h4 {
+    font-family: 'Montserrat', sans-serif;  /* Font family */
+    text-align: center; 					/* Center-align text */
+    font-size: 1.5rem; 						/* Font size */
+    font-weight: bold; 						/* Bold text */
+    text-transform: uppercase; 				/* Uppercase text */
+}
+
+#testimonials q {
+    font-family: 'Montserrat', sans-serif;  /* Font family */
+    text-align: center; 					/* Center-align text */
+    font-size: 1rem; 						/* Font size */
+    font-style: italic; 					/* Italic text */
+}
+
+#testimonials div {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive columns */
+}
+
+#testimonials section {
+    background-color: var(--White); /* Section background */
+    padding: 1.5rem; 				/* Padding inside the section */
+    border-radius: 0rem; 			/* No rounded corners */
+    text-align: center; 			/* Center-align content */
+}
+
+#testimonials img {
+    width: 200px; 		 /* Image width */
+    height: 200px; 		 /* Image height */
+    border-radius: 50%;  /* Make image circular */
+    margin-bottom: 1rem; /* Space below image */
+}
+
+/* About Section */
+#about {
+    background-color: var(--Blue); /* Section background color */
+    padding: 2rem; 				   /* Padding inside the section */
+}
+
+#about h3 {
+    font-family: 'Molle', cursive; 
+    text-align: left;  /* Left-align heading */
+    font-size: 2rem;   
+    margin-left: 1rem; /* Indent heading */
+}
+
+#about div {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(100px, auto)); /* Responsive columns */
+    justify-content: center; 									  /* Center the grid */
+}
+
+#about section {
+    text-align: center; /* Center-align content */
+    padding: 1rem; 		/* Padding inside the section */
+}
+
+#about img {
+    width: 100px; 			/* Image width */
+    height: 100px; 			/* Image height */
+    margin-bottom: 0.5rem;  /* Space below image */
+}
+
+#about h4 {
+    font-size: 1.5rem; 			
+    font-weight: bold; 			
+    margin-bottom: 0.5rem; 		/* Space below heading */
+    text-transform: uppercase; 	/* Capitalize text */
+}
+
+/* CONTACT FORM */
+
+/* Style for the Contact Us heading */
+#contact h3 {
+    font-family: 'Molle', cursive; 
+    font-size: 2rem; 			/* Font size */
+    color: var(--Dark-Gray); 	/* Text color */
+    margin-left: 4rem; 			/* Indent heading */
+    display: inline-block; 		/* Display inline-block */
+}
+
+/* Style for the *required text */
+#contact .form-required {
+    font-family: 'Montserrat', sans-serif; 	
+    font-size: 1rem; 						
+    font-style: italic; 					
+    color: var(--Red); 	 /* Text color (assumed variable, not defined above) */
+    font-weight: normal; /* Normal font weight */
+    margin-left: 0.5rem; /* Space to the left */
+}
+
+/* Form Grid Layout */
+form {
+    margin-top: 3rem; 						/* Space above the form */
+    display: grid; 							/* Use CSS Grid */
+    grid-template-columns: repeat(3, 1fr);  /* Three equal columns */
+    grid-template-rows: auto auto auto; 	/* Three rows */
+    gap: 2.5rem 2rem; 						/* Row gap and column gap */
+    width: 100%; 
+    box-sizing: border-box; 				/* Include padding and border in size */
+    padding: 0; 							/* Remove padding */
+}
+
+/* Adjust labels to align with inputs */
+form label {
+    display: block; 		 /* Labels occupy full width */
+    margin-bottom: 0.5rem; 	 /* Space below label */
+    font-weight: bold; 		 
+    color: var(--Dark-Gray); 
+}
+
+/* Positioning Form Elements */
+
+/* ROW 1 */
+#fName {
+    grid-column: 1; /* First column */
+    grid-row: 1;    /* First row */
+}
+
+fieldset {
+    grid-column: 2; /* Second column */
+    grid-row: 1;    /* First row */
+}
+
+#destination {
+    grid-column: 3; /* Third column */
+    grid-row: 1;    /* First row */
+    margin: 0;      /* Remove margins */
+    width: 100%;    /* Full width */
+}
+
+/* ROW 2 */
+#lName {
+    grid-column: 1; /* First column */
+    grid-row: 2;    /* Second row */
+}
+
+#email {
+    grid-column: 2; /* Second column */
+    grid-row: 2;    /* Second row */
+}
+
+#travelTime {
+    grid-column: 3; 	  /* Third column */
+    grid-row: 2;          /* Second row */
+    margin: 0 0 1.5rem 0; /* Margin-bottom of 1.5rem */
+    width: 100%;          /* Full width */
+}
+
+/* ROW 3 */
+#phone {
+    grid-column: 1 / span 2; /* Span columns 1 and 2 */
+    grid-row: 3;             /* Third row */
+}
+
+input[type="submit"] {
+    grid-column: 3; 				 /* Third column */
+    grid-row: 3; 					 /* Third row */
+    justify-self: start; 			 /* Align to the start (left) */
+    align-self: center; 			 /* Vertically center */
+    width: 50%; 					 /* Half the width of the grid cell */
+    margin-left: auto; 				 /* Push to the right side */
+    padding: 0.75rem 1.5rem; 		 /* Padding inside the button */
+    background-color: var(--Purple); /* Background color */
+    color: var(--White); 			 /* Text color */
+    font-weight: bold; 				 
+    border: none; 					 
+    border-radius: 0.25rem; 		 /* Rounded corners */
+    cursor: pointer; 				 /* Pointer cursor on hover */
+    box-sizing: border-box; 		 /* Include padding and border in size */
+}
+
+input[type="submit"]:hover {
+    background-color: #7A1E8A;     /* Darker background on hover */
+}
+
+/* Input and Select Styling */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select {
+    width: 100%; 					 /* Full width within grid cell */
+    padding: 0.75rem; 				 /* Padding inside inputs */
+    border: 2px solid var(--Purple); /* Border styling */
+    border-radius: 0.25rem;   		 /* Rounded corners */
+    box-sizing: border-box; 		 /* Include padding and border in size */
+    margin: 0; 						 /* Remove margins */
+}
+
+input:focus,
+select:focus {
+    border-color: var(--Teal);  /* Change border color on focus */
+    outline: none; 				/* Remove default outline */
+}
+
+/* Style the fieldset (Contact Method) */
+fieldset {
+    display: flex; 			/* Use flexbox */
+    flex-direction: row; 	/* Arrange items horizontally */
+    align-items: center; 	/* Vertically center items */
+    gap: 1rem; 				/* Space between items */
+    border: none; 			/* Removes default border */
+    padding: 0; 			/* Removes padding */
+    margin: 0; 				/* Removes margin */
+}
+
+/* Remove default margin from legend */
+fieldset legend {
+    margin-bottom: 0.5rem; 		/* Space below legend */
+    font-weight: bold; 			/* Bold text */
+    color: var(--Dark-Gray); 	/* Text color */
+    width: 100%; 				/* Full width */
+}
+
+/* Style labels inside the fieldset */
+fieldset label {
+    display: flex;		 
+    align-items: center; /* Vertically center items */
+    margin: 0; 			 /* Removes margins */
+    cursor: pointer; 	 /* Pointer cursor on hover */
+}
+
+/* Increase the size of the radio buttons */
+fieldset input[type="radio"] {
+    width: 2rem; 				 /* Width of radio button */
+    height: 2rem; 				 /* Height of radio button */
+    margin-right: 0.5rem; 		 /* Space to the right */
+    accent-color: var(--Purple); /* Set color of radio button */
+    border-radius: 50%; 		 /* Make radio buttons circular */
+}
+
+/* Adjust the radio label text */
+fieldset .radio-label {
+    font-size: 1rem; 		 /* Font size */
+    color: var(--Dark-Gray); /* Text color */
+}
+
+/* Footer */
+footer {
+    margin-top: 3rem; 				/* Space above footer */
+    padding: 1.5rem; 				/* Padding inside footer */
+    background-color: lightgrey;  /* Background color */
+    color: var(--Dark-Gray); 		/* Text color */
+    display: flex; 					/* Use flexbox */
+    justify-content: space-between; /* Space items evenly */
+    align-items: center; 			/* Vertically center items */
+}
+
+footer p {
+    margin: 0; 		 /* Remove margins */
+    font-size: 1rem; /* Font size */
+}
+
+footer a {
+    color: var(--Black); 				/* Link color */
+    margin-left: 1.5rem; 				/* Space between links */
+    font-size: 1rem; 					/* Font size */
+    text-decoration: none !important; 	/* Remove underline */
+}
+
+/* Responsive Design Adjustments */
+
+/* Hide Menu Toggle on Larger Screens */
+@media (min-width: 769px) {
+    #menu-toggle input,
+    label[for="toggle"],
+    h2.sr-only {
+        display: none; /* Hide these elements on larger screens */
+    }
+
+    /* Ensure the navigation is displayed horizontally */
+    nav ul {
+        display: flex; 		 /* Display nav items in a row */
+    }
+
+    nav ul li {
+        margin: 0; 			 /* Removes margins */
+    }
+
+    nav ul li + li {
+        margin-left: 0.5rem; /* Space between nav items */
+    }
+
+    nav ul li a {
+        padding: 0.5rem 1rem; /* Padding inside links */
+    }
+}
+
+/* RESPONSIVE ADJUSTMENTS FOR SMALLER SCREENS SUCH AS TABLETS */
+@media (max-width: 768px) {
+    /* Header */
+    header {
+        grid-template-columns: 1fr; 			 /* Single-column layout */
+        grid-template-rows: auto auto auto auto; /* Four rows */
+        grid-template-areas:
+            "logo"
+            "h1"
+            "p"
+            "nav";
+        align-items: center; /* Center items vertically */
+        text-align: center;  /* Center-align text */
+    }
+
+    #logo {
+        grid-area: logo; 		/* Place in 'logo' area */
+        justify-self: center; 	/* Center horizontally */
+        align-self: center; 	/* Center vertically */
+        margin: 0 auto; 		/* Center within container */
+        max-width: 80px; 		/* Reduce logo size */
+        height: auto; 			/* Auto height */
+    }
+
+    header h1 {
+        grid-area: h1;   /* Place in 'h1' area */
+        font-size: 2rem; /* Reduce font size */
+        padding-left: 0; /* Remove left padding */
+    }
+
+    header p {
+        grid-area: p;    /* Place in 'p' area */
+        font-size: 1rem; /* Reduce font size */
+        padding-left: 0; /* Remove left padding */
+    }
+
+    nav {
+        grid-area: nav; 		/* Place in 'nav' area */
+        justify-self: center; 	/* Center horizontally */
+        margin-top: 1rem; 		/* Space above navigation */
+        position: relative; 	/* For absolute positioning of nav ul */
+    }
+
+    /* Responsive Navigation for Small Screens */
+    nav ul {
+        display: none; 					/* Hide menu by default */
+        flex-direction: column; 		/* Stack items vertically */
+        background-color: var(--Blue);  /* Background color */
+        padding: 1rem; 					/* Padding inside menu */
+        border-radius: 0.5rem; 			/* Rounds corners */
+        position: center; 				/* Position relative to nav */
+        top: 100%;						/* Below the nav */
+        left: 0; 						/* Align to left edge */
+        width: 400px; 					/* Set width */
+        max-width: none; 				/* Removes max-width */
+        z-index: 10; 					/* Place above other elements */
+    }
+
+    /* Show the menu when the toggle is checked */
+    #toggle:checked + label + ul {
+        display: flex; /* Display menu */
+    }
+
+    label[for="toggle"] {
+        display: inline-block; 				/* Show label as inline-block */
+        cursor: pointer; 					/* Pointer cursor */
+        background-color: var(--Yellow); 	/* Background color */
+        color: var(--Black); 				/* Text color */
+        font-size: 1rem; 					/* Font size */
+        font-weight: bold; 					/* Bold text */
+        padding: 0.5rem 1rem; 				/* Padding inside label */
+        border-radius: 0.25rem; 			/* Rounds the corners */
+        text-transform: uppercase; 			/* Uppercase text */
+        margin-top: 1rem; 					/* Space above label */
+    }
+
+    /* Style for menu items */
+    nav ul li {
+        margin: 0.5rem 0; /* Space between items */
+    }
+
+    nav ul li a {
+        color: var(--Black); 	/* Text color */
+        padding: 0.75rem 1rem;  /* Padding inside links */
+        font-size: 1rem; 		/* Font size */
+        text-decoration: none;  /* Remove underline */
+    }
+
+    /* Intro Section */
+    #intro {
+        grid-template-columns: 1fr; /* Single-column layout */
+        padding: 1rem; 				/* Reduce padding */
+    }
+
+    #intro h2,
+    #intro p {
+        grid-column: 1; 	/* Place in first column */
+        margin-left: 0; 	/* Remove left margin */
+        text-align: center; /* Center-align text */
+    }
+
+    #img-grid {
+        grid-column: 1; 											 /* Place in first column */
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust columns */
+        gap: 0.5rem; 												 /* Reduces gap */
+        padding: 1rem 0; 											 /* Adjust padding */
+    }
+
+    /* Plan Your Trip Section */
+    #plan {
+        padding: 1rem; /* Reduce padding */
+    }
+
+    #plan h3 {
+        margin-left: 0; 	/* Remove left margin */
+        text-align: center; /* Center-align heading */
+        font-size: 1.8rem; 	/* Reduce font size */
+    }
+
+    #plan div {
+        flex-direction: column; /* Stack sections vertically */
+        align-items: center; 	/* Center sections */
+    }
+
+    #plan section {
+        max-width: 100%; 		/* Full width */
+        flex: none; 			/* Disable flex growth/shrink */
+        margin-bottom: 1.5rem;  /* Space below sections */
+    }
+
+    #plan h4 {
+        font-size: 1.3rem; /* Reduce font size */
+    }
+
+    #plan img {
+        width: 120px;  /* Reduce image size */
+        height: 120px; /* Reduce image size */
+    }
+
+    /* Testimonials */
+    #testimonials {
+        padding: 1rem; /* Reduce padding */
+    }
+
+    #testimonials h3 {
+        margin-left: 0; 	/* Remove left margin */
+        text-align: center; /* Center-align heading */
+        font-size: 1.8rem;  /* Reduce font size */
+    }
+
+    #testimonials div {
+        grid-template-columns: 1fr; /* Single-column grid */
+        gap: 1rem; 					/* Space between testimonials */
+    }
+
+    #testimonials section {
+        padding: 1rem; /* Reduce padding */
+    }
+
+    #testimonials img {
+        width: 150px;  /* Reduce image size */
+        height: 150px; /* Reduce image size */
+    }
+
+    #testimonials h4 {
+        font-size: 1.2rem; /* Reduce font size */
+    }
+
+    #testimonials q {
+        font-size: 0.9rem; /* Reduce font size */
+    }
+
+    /* About Section */
+    #about {
+        padding: 1rem; /* Reduce padding */
+    }
+
+    #about h3 {
+        margin-left: 0; 	/* Remove left margin */
+        text-align: center; /* Center-align heading */
+        font-size: 1.8rem; 	/* Reduce font size */
+    }
+
+    #about div {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Adjust columns */
+        gap: 1rem; /* Space between items */
+    }
+
+    #about section {
+        padding: 0.5rem; /* Reduce padding */
+    }
+
+    #about img {
+        width: 80px;  /* Reduce image size */
+        height: 80px; /* Reduce image size */
+    }
+
+    #about h4 {
+        font-size: 1.2rem; /* Reduce font size */
+    }
+
+    /* Contact Form */
+    #contact h3 {
+        margin-left: 0; 	/* Remove left margin */
+        text-align: center; /* Center-align heading */
+    }
+
+    form {
+        grid-template-columns: 1fr; /* Single-column layout */
+        gap: 1.5rem; 				/* Adjust gap */
+        padding: 1rem; 				/* Reduce padding */
+    }
+
+    /* Adjust form fields to full width */
+    #fName,
+    #lName,
+    #email,
+    #phone,
+    #destination,
+    #travelTime,
+    fieldset {
+        grid-column: 1; /* Place in first column */
+        width: 100%; 	/* Full width */
+    }
+
+    #phone {
+        grid-row: auto; /* Auto row positioning */
+    }
+
+    input[type="submit"] {
+        grid-column: 1; 	  /* Place in first column */
+        width: 100%; 		  /* Full width */
+        justify-self: center; /* Center horizontally */
+        margin-left: 0; 	  /* Remove left margin */
+    }
+
+    /* Adjust fieldset for small screens */
+    fieldset {
+        flex-direction: column;  /* Stack items vertically */
+        align-items: flex-start; /* Align items to the start */
+    }
+
+    fieldset label {
+        margin-bottom: 0.5rem; /* Space below labels */
+    }
+
+    fieldset input[type="radio"] {
+        width: 1.5rem;  /* Reduce size */
+        height: 1.5rem; /* Reduce size */
+    }
+
+    /* FOOTER */
+    footer {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; 	/* Centers items */
+        text-align: center; 	/* Center-align text */
+    }
+
+    footer p {
+        margin-bottom: 0.5rem; /* Space below paragraph */
+    }
+
+    footer a {
+        margin-left: 0; 	  /* Remove left margin */
+        margin-right: 0.5rem; /* Space between links */
+    }
+}
+
+/* RESPONSIVE ADJUSTMENTS FOR PHONES */
+@media (max-width: 480px) {
+    /* Further adjustments for very small screens */
+
+    /* HEADER */
+    header h1 {
+        font-size: 1.8rem; /* Further reduce font size */
+    }
+
+    header p {
+        font-size: 0.9rem; /* Further reduce font size */
+    }
+
+    label[for="toggle"] {
+        font-size: 0.9rem; /* Reduce font size */
+        padding: 0.5rem;   /* Adjust padding */
+    }
+
+    /* INTRO SECTION */
+    #intro h2 {
+        font-size: 1.5rem; /* Reduce font size */
+    }
+
+    #intro p {
+        font-size: 0.9rem; /* Reduce font size */
+    }
+
+    #img-grid img {
+        height: 100px; /* Reduced image height */
+    }
+
+    /* PLAN SECTION */
+    #plan h3 {
+        font-size: 1.5rem; /* Reduced font size */
+    }
+
+    #plan h4 {
+        font-size: 1.1rem; /* Reduced font size */
+    }
+
+    #plan img {
+        width: 100px;  /* Reduced image size */
+        height: 100px; /* Reduced image size */
+    }
+
+    /* TESTIMONIALS */
+    #testimonials h3 {
+        font-size: 1.5rem; /* Reduced font size */
+    }
+
+    #testimonials img {
+        width: 120px;  /* Reduced image size */
+        height: 120px; /* Reduced image size */
+    }
+
+    #testimonials h4 {
+        font-size: 1rem; /* Reduced font size */
+    }
+
+    #testimonials q {
+        font-size: 0.8rem; /* Reduced font size */
+    }
+
+    /* ABOUT SECTION */
+    #about h3 {
+        font-size: 1.5rem; /* Reduced font size */
+    }
+
+    #about img {
+        width: 60px;  /* Reduced image size */
+        height: 60px; /* Reduced image size */
+    }
+
+    #about h4 {
+        font-size: 1rem; /* Reduced font size */
+    }
+
+    /* CONTACT FORM */
+    #contact h3 {
+        font-size: 1.5rem; /* Reduced font size */
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    input[type="submit"] {
+        padding: 0.5rem;   /* Adjust padding */
+        font-size: 0.9rem; /* Reduce font size */
+    }
+
+    /* Footer */
+    footer p,
+    footer a {
+        font-size: 0.9rem; /* Reduce font size */
+    }
+}
